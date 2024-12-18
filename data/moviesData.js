@@ -13,5 +13,5 @@ export const movies = [
         id : 3,
         title : 'Solo Leveling',
         genre : 'Action'
-    },
+    }
 ]
