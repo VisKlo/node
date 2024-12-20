@@ -1,4 +1,3 @@
-
 import {Router} from 'express'
 import {movies} from '../data/moviesData.js'
 

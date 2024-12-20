@@ -1,25 +1,37 @@
-
 import express from 'express'
 import 'dotenv/config'
 import movieRouter from './routes/movieRouter.js'
 import userRouter from './routes/userRouter.js'
+import postRouter from './routes/postRouter.js'
+import authRouter from './routes/authRouter.js'
 import mongoose from 'mongoose'
+import cors from 'cors'
+
 
 const app = express()
 
 const PORT = process.env.PORT || 3002
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended : false}))
-app.use(movieRouter, userRouter)
+app.use(movieRouter, userRouter, postRouter, authRouter)
 
 
 const MONGO_URI = process.env.MONGO_URI
 
 
-app.get('/', (request, response) => {
-    response.send(`Welcome to my API`)
-})
+const firstMiddleware =  (request, response, next) => {
+    console.log(`Welcome to my API`)
+    next()
+}
+
+const secondMiddleware = (request, response, next) => {
+    response.send('Hello world')
+}
+
+
+app.get('/', firstMiddleware, secondMiddleware)
 
 
 
